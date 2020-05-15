@@ -1,0 +1,6 @@
+Step,Setpoint,Duration,Alarm
+Einmaischen,58,5,0
+Eiweissrast,57,10,0
+Maltoserast,63,45,0
+Endverzuckerung,72,30,0
+Läuterrast,78,10,1
