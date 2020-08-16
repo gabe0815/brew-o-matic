@@ -1,0 +1,25 @@
+version: "3"
+services:
+  broker:
+    image: eclipse-mosquitto
+    networks:
+      - localnet
+    ports:
+      - "1883:1883"
+  brew-o-matic:
+    depends_on:
+      - broker
+    build:
+      context: ./node-red/
+      dockerfile: Dockerfile-pi1
+    environment:
+      - TZ=Europe/Amsterdam
+    networks:
+      - localnet
+    ports:
+      - "1880:1880"
+    volumes: 
+      - ./node-red/:/data
+networks:
+  localnet:
+

@@ -1,0 +1,15 @@
+#FROM nodered/node-red
+#FROM node:10.13-alpine
+FROM nodered/node-red:1.1.2-10-minimal-arm32v6
+
+USER root
+RUN apk update && apk add --no-cache --virtual .gyp python g++ make && rm -rf /var/cache/apk/*
+
+# Copy package.json to the WORKDIR so npm builds all
+# of your added modules for Node-RED
+COPY package.json .
+#RUN npm install --only=production
+RUN npm install
+
+# Start the container normally
+CMD ["npm", "start"]
