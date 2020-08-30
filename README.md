@@ -50,6 +50,21 @@ If alarm == 1, then an alarm sound is played, notifying you in case you need to 
 If you start a recipe, all parameters are logged to a sqlite database.
 You can export and download the recorded values for each brewing session, by choosing the date.
 
+## User interface
+
+### Main Tab
+Shows temperature, state of the relay, timer and current step of the protocol.
+This tab is always visible (in simple and extended mode).
+
+### Recipes
+Allows you to display the stored recipes, start, stop and delete recipes.
+To show list of stored recipes, click on refresh.
+
+### Editor
+
+
+
+
 
 
 [principle]: /home/gabe/oldalbert/mnt/4TBraid_01/sync/Projects/homebrew/brew-o-matic/documentation/images/Brew-o-matic_working_principle.png
