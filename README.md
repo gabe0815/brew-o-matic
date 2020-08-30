@@ -23,7 +23,22 @@ docker-compose -f brew-o-matic_pi1.yml up
 ## Hardware components you will need in addition:
 - thermometer which can send it's values over mqtt
 - relay which can be controlled through mqtt
-- a heating plate + pot (or an electric pot)
+- an electric pot (or a heating plate with a pot)
+
+### Example setup
+I run Brew-o-matic on a Raspberry Pi 1 and use a Sonoff Basic with a DS18b20 temperature sensor.
+
+The Sonoff basic is flashed with [TASMOTA](https://github.com/arendst/Tasmota).
+
+![Tasmota][TasmotaMain]
+
+![TasmotaSetup][TasmotaSetup]
+
+![TasmotaMQTT][TasmotaMQTT]
+
+You need to edit the mqtt settings to point the Sonoff to the mqtt broker of this docker, or use your existing mqtt broker. In this case, you will also need to adapt the mqtt nodes in the flow.
+
+Since Tasmota doesn't send the temperature values as often as we would like it, we actively poll the sensor every second by sending the payload "10" to the topic "cmnd/brew-o-matic/status" and we extract the temperature by subscribing to "stat/brew-o-matic/STATUS10".
 
 
 ## User interface
@@ -59,10 +74,8 @@ mash out | 78 | 10 | 1
 
 ### Manual
 Instead of running a predefined recipe, you can also manually enter a setpoint and a timer duration.
-Also you have the option to engage the thermostat and let it control temperature.
+Furhermore, you havek  the option to engage the thermostat and let it control temperature.
 If the thermostat is not engaded, you can manually control the heater state with the switch.
-
-
 
 ![UI manual tab][manualTab]
 
@@ -77,17 +90,20 @@ To use the recipe, click on use protocol. Finally, if you click on save protocol
 ![UI log tab][logTab]
 
 If you start a recipe, all parameters are logged to a sqlite database.
-You can export and download the recorded values for each brewing session, by choosing the date.
+You can export and download the recorded values for each brewing session.
+Choose the date in the calendar, display the values by clicking on show, and then download the log by clicking on download.
 
-The Hot-o-meter shows a preview of the chosen recipe and will overlay the current temperature.
+In addition, the Hot-o-meter shows a preview of the chosen recipe and will overlay the current temperature.
 
-
-[principle]: /home/gabe/oldalbert/mnt/4TBraid_01/sync/Projects/homebrew/brew-o-matic/documentation/images/Brew-o-matic_working_principle.png
+[principle]: ./documentation/images/Brew-o-matic_working_principle.png
  "working principle"
-[mainTab]: /home/gabe/oldalbert/mnt/4TBraid_01/sync/Projects/homebrew/brew-o-matic/documentation/images/UI_tab_main.png "main tab"
-[recipeTab]: /home/gabe/oldalbert/mnt/4TBraid_01/sync/Projects/homebrew/brew-o-matic/documentation/images/UI_tab_recipe.png "recipe tab"
-[manualTab]: /home/gabe/oldalbert/mnt/4TBraid_01/sync/Projects/homebrew/brew-o-matic/documentation/images/UI_tab_Manual.png "manual tab"
+[mainTab]: ./documentation/images/UI_tab_main.png "main tab"
+[recipeTab]: ./documentation/images/UI_tab_recipe.png "recipe tab"
+[manualTab]: ./documentation/images/UI_tab_Manual.png "manual tab"
 
-[recipe]: /home/gabe/oldalbert/mnt/4TBraid_01/sync/Projects/homebrew/brew-o-matic/documentation/images/Recipe.png "recipe"
-[editorTab]: /home/gabe/oldalbert/mnt/4TBraid_01/sync/Projects/homebrew/brew-o-matic/documentation/images/UI_tab_editor.png "editor"
-[logTab]: /home/gabe/oldalbert/mnt/4TBraid_01/sync/Projects/homebrew/brew-o-matic/documentation/images/UI_tab_Log.png "log"
+[recipe]: ./documentation/images/Recipe.png "recipe"
+[editorTab]: ./documentation/images/UI_tab_editor.png "editor"
+[logTab]: ./documentation/images/UI_tab_Log.png "log"
+[TasmotaMain]: ./documentation/images/Sonoff_Tasmota.png "Tasmota main"
+[TasmotaSetup]:./documentation/images/Tasmota_DS18b20.png "Tamota config"
+[TasmotaMQTT]: ./documentation/images/Tasmota_mqtt.png "Tasmota mqtt"
