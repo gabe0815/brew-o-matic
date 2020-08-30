@@ -1,4 +1,19 @@
-# Brew-o-Matic: a node-red based mash controller
+# Brew-o-matic: a node-red based mash controller
+
+![working principle][principle]
+
+## Getting started
+Brew-o-matic was tested on x86-64, Raspberry Pi 4, Raspberry Pi 3 and Raspberry Pi 1.
+
+Clone or checkout the repository, then start docker:
+```bash
+docker-compose -f brew-o-matic.yml up
+```
+If you're using a Raspberry Pi 1, then use the alternative docker-compose file:
+
+```bash
+docker-compose -f brew-o-matic_pi1.yml up
+```
 
 ## Components of the docker-compose file:
 - node-red + dependencies
@@ -6,7 +21,7 @@
 - mosquitto (mqtt server)
 
 ## Hardware components you will need in addition:
-- thermometer which can send it's value over mqtt
+- thermometer which can send it's values over mqtt
 - relay which can be controlled through mqtt
 - a heating plate + pot (or an electric pot)
 
@@ -35,7 +50,7 @@ If alarm == 1, then an alarm sound is played, notifying you in case you need to 
 If you start a recipe, all parameters are logged to a sqlite database.
 You can export and download the recorded values for each brewing session, by choosing the date.
 
-![working principle][principle]
+
 
 [principle]: /home/gabe/oldalbert/mnt/4TBraid_01/sync/Projects/homebrew/brew-o-matic/documentation/images/Brew-o-matic_working_principle.png
  "working principle"
