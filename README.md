@@ -1,6 +1,23 @@
 # Brew-o-matic: a node-red based mash controller
 
+Brew-o-matic is a node-red based mash controller which allows you to automate mashing
+temperature profiles.
+![overview][overview]
+
 ![working principle][principle]
+
+## Features
+* display temperature
+* temperature control via relay output
+* program sequence of setpoints and timer durations
+* load, edit and save new sequences (aka recipes)
+* live plotting of temperature and setpoint vs. time
+* logging of temperature, setpoint, PID output, heater state etc. in a database
+* export of logs
+
+
+
+
 
 ## Getting started
 Brew-o-matic was tested on x86-64, Raspberry Pi 4, Raspberry Pi 3 and Raspberry Pi 1.
@@ -123,7 +140,8 @@ The recipes are saved as csv files in a persistent storage located in
 When you create and save new recipes through the UI, they will be saved in this location.
 
 
-
+[overview]: ./documentation/images/Brew-o-matic_overview.jpg
+ "Brew-o-matic overview"
 [principle]: ./documentation/images/Brew-o-matic_working_principle.png
  "working principle"
 [mainTab]: ./documentation/images/UI_tab_main.png "main tab"
