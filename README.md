@@ -6,13 +6,13 @@
 Brew-o-matic was tested on x86-64, Raspberry Pi 4, Raspberry Pi 3 and Raspberry Pi 1.
 
 Clone or checkout the repository, then start docker:
-```bash
-docker-compose -f brew-o-matic.yml up
+```console
+# docker-compose -f brew-o-matic.yml up
 ```
 If you're using a Raspberry Pi 1, then use the alternative docker-compose file:
 
-```bash
-docker-compose -f brew-o-matic_pi1.yml up
+```console
+# docker-compose -f brew-o-matic_pi1.yml up
 ```
 
 ## Components of the docker-compose file:
@@ -58,7 +58,7 @@ Allows you to display, start, stop and delete stored recipes.
 To show list of available recipes, click on refresh.
 ![UI recipe tab][recipeTab]
 
-A recipe is a sequence of temperature setpoints and durations, indicating how long a certain temperature should be held until the next step in the sequence is performed.
+A recipe is a sequence of temperature setpoint and duration, indicating how long a certain temperature should be held until the next step in the sequence is performed.
 
 A recipe contains the following parameters:
 
@@ -74,8 +74,8 @@ mash out | 78 | 10 | 1
 
 ### Manual
 Instead of running a predefined recipe, you can also manually enter a setpoint and a timer duration.
-Furhermore, you havek  the option to engage the thermostat and let it control temperature.
-If the thermostat is not engaded, you can manually control the heater state with the switch.
+Furthermore, you have  the option to engage the thermostat and let it control temperature.
+If the thermostat is not engaged, you can manually control the heater state with the switch.
 
 ![UI manual tab][manualTab]
 
@@ -94,6 +94,35 @@ You can export and download the recorded values for each brewing session.
 Choose the date in the calendar, display the values by clicking on show, and then download the log by clicking on download.
 
 In addition, the Hot-o-meter shows a preview of the chosen recipe and will overlay the current temperature.
+
+## Under the hood
+
+### Temperature control
+The Brew-o-matic uses a simple time-proportioned output for the relay.
+``` javascript
+if (currentTemp < (setpoint-5)) {
+        //far from setpoint, keep heating
+        pid_output = 1;
+    } else if (currentTemp < (setpoint-2)){
+        //closer to setpoint, slowdown heating
+        pid_output = 0.8;
+    } else if (currentTemp < (setpoint)){
+        pid_output = 0.5;
+    } else {
+        pid_output = 0;
+    }
+```
+
+The cycle time of the time-proportioned output is 30s. With the value of pid_output = 1, it will be on for the full cycle time, with the pid_output = 0.5 it will be on for half the cycle time and off for the other half of the cycle time and so forth.
+
+### Recipes
+The recipes are saved as csv files in a persistent storage located in
+```bash
+~/brew-o-matic/node-red/protocols
+```
+When you create and save new recipes through the UI, they will be saved in this location.
+
+
 
 [principle]: ./documentation/images/Brew-o-matic_working_principle.png
  "working principle"
