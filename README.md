@@ -87,7 +87,6 @@ starch conversion 1 | 63 | 45 | 0
 starch conversion 2 | 72 | 30 | 0
 mash out | 78 | 10 | 1
 
-![Recipe][recipe]
 
 ### Manual
 Instead of running a predefined recipe, you can also manually enter a setpoint and a timer duration.
@@ -148,7 +147,6 @@ When you create and save new recipes through the UI, they will be saved in this 
 [recipeTab]: ./documentation/images/UI_tab_recipe.png "recipe tab"
 [manualTab]: ./documentation/images/UI_tab_Manual.png "manual tab"
 
-[recipe]: ./documentation/images/Recipe.png "recipe"
 [editorTab]: ./documentation/images/UI_tab_editor.png "editor"
 [logTab]: ./documentation/images/UI_tab_Log.png "log"
 [TasmotaMain]: ./documentation/images/Sonoff_Tasmota.png "Tasmota main"
