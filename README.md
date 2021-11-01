@@ -5,6 +5,7 @@ temperature profiles for consitent home brews. Convert any electric pot into a p
 ![overview][overview]
 
 ![working principle][principle]
+![hardware setup][setup]
 
 ## Features
 * display temperature
@@ -165,3 +166,4 @@ When you create and save new recipes through the UI, they will be saved in this 
 [logTab]: ./documentation/images/UI_tab_Log.png "log"
 [TasmotaMain]: ./documentation/images/Sonoff_Tasmota.png "Tasmota main"
 [TasmotaSetup]:./documentation/images/Tasmota_DS18b20.png "Tamota config"
+[setup]:./documentation/images/Brew-o-matic_hardware_small.jpg "Hardware setup"
