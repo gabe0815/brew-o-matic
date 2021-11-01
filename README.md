@@ -1,7 +1,7 @@
 # Brew-o-matic: a node-red based mash controller
 
 Brew-o-matic is a node-red based mash controller which allows you to automate mashing
-temperature profiles.
+temperature profiles for consitent home brews. Convert any electric pot into a programmable thermostat.  
 ![overview][overview]
 
 ![working principle][principle]
@@ -16,11 +16,13 @@ temperature profiles.
 * export of logs
 
 
-
-
-
 ## Getting started
 Brew-o-matic was tested on x86-64, Raspberry Pi 4, Raspberry Pi 3 and Raspberry Pi 1.
+
+### Prerequisites
+On Linux, install docker and docker-compose. Make sure to search for Raspberry Pi specific instructions since the regular instructions won't work.
+
+### Download the repository
 
 Clone or checkout the repository, then start docker:
 ```console
@@ -31,10 +33,17 @@ If you're using a Raspberry Pi 1, then use the alternative docker-compose file:
 ```console
 # docker-compose -f brew-o-matic_pi1.yml up
 ```
+### Access Brew-o-matic
+In a web browser, go to
+```html
+ <Your Server IP>:1880/ui
+```
+
+You can change the port of node-red in the docker compose file.
 
 ## Components of the docker-compose file:
 - node-red + dependencies
-- brew-o-matic flow
+- Brew-o-matic flow
 - mosquitto (mqtt server)
 
 ## Hardware components you will need in addition:
@@ -43,19 +52,24 @@ If you're using a Raspberry Pi 1, then use the alternative docker-compose file:
 - an electric pot (or a heating plate with a pot)
 
 ### Example setup
-I run Brew-o-matic on a Raspberry Pi 1 and use a Sonoff Basic with a DS18b20 temperature sensor.
+I run Brew-o-matic on a Raspberry Pi 1 and use a Sonoff TH10 with a DS18b20 temperature sensor connected through the 2.5 mm jack connector.
 
-The Sonoff basic is flashed with [TASMOTA](https://github.com/arendst/Tasmota).
+The Sonoff is flashed with [TASMOTA](https://github.com/arendst/Tasmota).
 
 ![Tasmota][TasmotaMain]
 
 ![TasmotaSetup][TasmotaSetup]
 
-![TasmotaMQTT][TasmotaMQTT]
 
 You need to edit the mqtt settings to point the Sonoff to the mqtt broker of this docker, or use your existing mqtt broker. In this case, you will also need to adapt the mqtt nodes in the flow.
 
 Since Tasmota doesn't send the temperature values as often as we would like it, we actively poll the sensor every second by sending the payload "10" to the topic "cmnd/brew-o-matic/status" and we extract the temperature by subscribing to "stat/brew-o-matic/STATUS10".
+
+Instead of actively polling the sensor value you can also change the telemtry frequency (aka teleperiod) using the following command on the Tasmota console:
+```bash
+TelePeriod 10
+```
+
 
 
 ## User interface
@@ -151,4 +165,3 @@ When you create and save new recipes through the UI, they will be saved in this 
 [logTab]: ./documentation/images/UI_tab_Log.png "log"
 [TasmotaMain]: ./documentation/images/Sonoff_Tasmota.png "Tasmota main"
 [TasmotaSetup]:./documentation/images/Tasmota_DS18b20.png "Tamota config"
-[TasmotaMQTT]: ./documentation/images/Tasmota_mqtt.png "Tasmota mqtt"
